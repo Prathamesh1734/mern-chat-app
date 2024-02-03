@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { UserModel } = require("./models/User");
+const ws = require("ws");
 
 dotenv.config();
 mongoose.connect(process.env.MONGO_URL);
@@ -92,6 +93,40 @@ app.post("/register", async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
+const server = app.listen(3000, () => {
   console.log("started on 3000");
+});
+
+const wsServer = new ws.WebSocketServer({ server });
+
+wsServer.on("connection", (connection, req) => {
+  const cookies = req.headers.cookie;
+
+  if (cookies) {
+    const cookieTokenString = cookies
+      .split(";")
+      .find((str) => str.startsWith("token="));
+    if (cookieTokenString) {
+      const token = cookieTokenString.split("=")[1];
+      if (token) {
+        jwt.verify(token, jwtSecret, {}, (err, userData) => {
+          if (err) throw err;
+          const { userId, username } = userData;
+          connection.userId = userId;
+          connection.username = username;
+        });
+      }
+    }
+  }
+
+  [...wsServer.clients].forEach((client) => {
+    client.send(
+      JSON.stringify({
+        online: [...wsServer.clients].map((c) => ({
+          userId: c.userId,
+          username: c.username,
+        })),
+      })
+    );
+  });
 });
