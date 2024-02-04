@@ -34,5 +34,5 @@ MONGO_URL="your_mongodb_url"
 
 **Client:** React, TailwindCSS
 
-**Server:** Node, Express
+**Server:** Node, Express, WebSockets
 
