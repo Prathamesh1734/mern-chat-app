@@ -6,6 +6,7 @@ const dotenv = require("dotenv");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { UserModel } = require("./models/User");
+const { MessageModel } = require("./models/Message");
 const ws = require("ws");
 
 dotenv.config();
@@ -24,10 +25,37 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
+async function getUserDataFromReq(req) {
+  return new Promise((resolve, reject) => {
+    const token = req.cookies?.token;
+
+    if (token) {
+      jwt.verify(token, jwtSecret, {}, (err, userData) => {
+        if (err) throw err;
+        resolve(userData);
+      });
+    } else {
+      reject("no token");
+    }
+  });
+}
+
 app.get("/test", (req, res) => {
   res.json({
     message: "test ok",
   });
+});
+
+app.get("/messages/:userId", async (req, res) => {
+  const { userId } = req.params;
+  const userData = await getUserDataFromReq(req);
+  const ourUserId = userData.userId;
+  const messages = await MessageModel.find({
+    sender: { $in: [userId, ourUserId] },
+    recipient: { $in: [userId, ourUserId] },
+  }).sort({ createdAt: 1 });
+
+  res.json(messages);
 });
 
 app.get("/profile", (req, res) => {
@@ -100,6 +128,7 @@ const server = app.listen(3000, () => {
 const wsServer = new ws.WebSocketServer({ server });
 
 wsServer.on("connection", (connection, req) => {
+  //read username and id from the cookie for this connection
   const cookies = req.headers.cookie;
 
   if (cookies) {
@@ -119,6 +148,31 @@ wsServer.on("connection", (connection, req) => {
     }
   }
 
+  connection.on("message", async (message) => {
+    const messageData = JSON.parse(message.toString());
+    const { recipient, text } = messageData;
+    if (recipient && text) {
+      const messageDoc = await MessageModel.create({
+        sender: connection.userId,
+        recipient: recipient,
+        text: text,
+      });
+      [...wsServer.clients]
+        .filter((c) => c.userId === recipient)
+        .forEach((c) =>
+          c.send(
+            JSON.stringify({
+              text,
+              sender: connection.userId,
+              recipient,
+              _id: messageDoc._id,
+            })
+          )
+        );
+    }
+  });
+
+  //notify everyone about online people (when someone connects)
   [...wsServer.clients].forEach((client) => {
     client.send(
       JSON.stringify({
