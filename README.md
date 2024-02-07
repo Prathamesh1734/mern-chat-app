@@ -2,7 +2,7 @@
 
 Chat App using MERN stack
 
-![Local Image](images/Main.png)
+![Local Image](images/Homepage.png)
 
 ## Installation
 
