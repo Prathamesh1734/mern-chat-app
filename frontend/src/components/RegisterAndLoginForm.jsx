@@ -7,13 +7,20 @@ export default function RegisterAndLoginForm() {
   const [password, setPassword] = useState("");
   const [isLoginOrRegister, setIsLoginOrRegister] = useState("register");
   const { setUsername: setLoggedInUsername, setId } = useContext(UserContext);
+  const [errorMessage, setErrorMessage] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
     const url = isLoginOrRegister === "register" ? "register" : "login";
-    const { data } = await axios.post(url, { username, password });
-    setLoggedInUsername(username);
-    setId(data.id);
+    try {
+      const { data } = await axios.post(url, { username, password });
+      setLoggedInUsername(username);
+      setId(data.id);
+    } catch (error) {
+      if (error.response.status === 401) {
+        setErrorMessage("Invalid username or password!");
+      }
+    }
   }
 
   return (
@@ -23,6 +30,7 @@ export default function RegisterAndLoginForm() {
           value={username}
           onChange={(e) => {
             setUsername(e.target.value);
+            setErrorMessage("");
           }}
           type="text"
           placeholder="Username"
@@ -32,6 +40,7 @@ export default function RegisterAndLoginForm() {
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
+            setErrorMessage("");
           }}
           type="password"
           placeholder="Password"
@@ -40,6 +49,9 @@ export default function RegisterAndLoginForm() {
         <button className="bg-blue-500 text-white block w-full rounded-md p-2">
           {isLoginOrRegister === "register" ? "Register" : "Login"}
         </button>
+        {errorMessage && (
+          <div className="text-red-500 text-center mt-2">{errorMessage}</div>
+        )}
         <div className="text-center mt-2">
           {isLoginOrRegister === "register" && (
             <div>
