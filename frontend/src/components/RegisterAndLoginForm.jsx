@@ -34,8 +34,8 @@ export default function RegisterAndLoginForm() {
           </h1>
           <br></br>
           <p class="mx-auto  text-xl font-normal leading-relaxed text-gray-600 dark:text-gray-300 lg:w-2/3">
-            ChatApp is a free to use chatting website for websites made with
-            React.js and styled with Tailwind CSS
+            ChatApp is a free to use chatting website made with React.js and
+            styled with Tailwind CSS
           </p>
         </div>
         <div className="mt-10 ">
