@@ -1,8 +1,8 @@
-
 # Chat App💬
 
 Chat App using MERN stack
 
+![Local Image](images/Main.png)
 
 ## Installation
 
@@ -19,6 +19,7 @@ Install npm packages in backend and frontend
 cd backend
 npm i
 ```
+
 ```bash
 cd frontend
 npm i
@@ -35,4 +36,3 @@ MONGO_URL="your_mongodb_url"
 **Client:** React, TailwindCSS
 
 **Server:** Node, Express, WebSockets
-
