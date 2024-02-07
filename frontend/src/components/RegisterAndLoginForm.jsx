@@ -24,61 +24,79 @@ export default function RegisterAndLoginForm() {
   }
 
   return (
-    <div className="bg-blue-50 h-screen flex items-center">
-      <form className="w-64 mx-auto mb-12" onSubmit={handleSubmit}>
-        <input
-          value={username}
-          onChange={(e) => {
-            setUsername(e.target.value);
-            setErrorMessage("");
-          }}
-          type="text"
-          placeholder="Username"
-          className="block w-full rounded-md p-2 mb-2 border"
-        />
-        <input
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-            setErrorMessage("");
-          }}
-          type="password"
-          placeholder="Password"
-          className="block w-full rounded-md p-2 mb-2 border"
-        />
-        <button className="bg-blue-500 text-white block w-full rounded-md p-2">
-          {isLoginOrRegister === "register" ? "Register" : "Login"}
-        </button>
-        {errorMessage && (
-          <div className="text-red-500 text-center mt-2">{errorMessage}</div>
-        )}
-        <div className="text-center mt-2">
-          {isLoginOrRegister === "register" && (
-            <div>
-              Already a member?{" "}
-              <button
-                onClick={() => {
-                  setIsLoginOrRegister("login");
-                }}
-              >
-                Login here
-              </button>
-            </div>
-          )}
-          {isLoginOrRegister === "login" && (
-            <div>
-              Not a member?{" "}
-              <button
-                onClick={() => {
-                  setIsLoginOrRegister("register");
-                }}
-              >
-                Register here
-              </button>
-            </div>
-          )}
+    <div className="bg-blue-50 h-screen flex items-center dark:bg-black text-white">
+      <div class="container px-5 pt-32 mx-auto lg:px-4 lg:py-4">
+        <div class="flex flex-col w-full mb-2 text-left md:text-center ">
+          <h1 class="mb-2 text-6xl font-bold tracking-tighter text-white lg:text-8xl md:text-7xl">
+            <span>Welcome to </span>
+            <br class="hidden lg:block"></br>
+            realtime ChatApp
+          </h1>
+          <br></br>
+          <p class="mx-auto  text-xl font-normal leading-relaxed text-gray-600 dark:text-gray-300 lg:w-2/3">
+            ChatApp is a free to use chatting website for websites made with
+            React.js and styled with Tailwind CSS
+          </p>
         </div>
-      </form>
+        <div className="mt-10 ">
+          <form className="w-64 mx-auto mb-12" onSubmit={handleSubmit}>
+            <input
+              value={username}
+              onChange={(e) => {
+                setUsername(e.target.value);
+                setErrorMessage("");
+              }}
+              type="text"
+              placeholder="Username"
+              className="block w-full rounded-md p-2 mb-2 border dark:bg-black text-white"
+            />
+            <input
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setErrorMessage("");
+              }}
+              type="password"
+              placeholder="Password"
+              className="block w-full rounded-md p-2 mb-2 border dark:bg-black text-white"
+            />
+            <button className="bg-blue-500 text-white block w-full rounded-md p-2 ">
+              {isLoginOrRegister === "register" ? "Register" : "Login"}
+            </button>
+            {errorMessage && (
+              <div className="text-red-500 text-center mt-2">
+                {errorMessage}
+              </div>
+            )}
+            <div className="text-center mt-2 dark:text-gray-300">
+              {isLoginOrRegister === "register" && (
+                <div>
+                  Already a member?{" "}
+                  <button
+                    onClick={() => {
+                      setIsLoginOrRegister("login");
+                    }}
+                  >
+                    Login here
+                  </button>
+                </div>
+              )}
+              {isLoginOrRegister === "login" && (
+                <div>
+                  Not a member?{" "}
+                  <button
+                    onClick={() => {
+                      setIsLoginOrRegister("register");
+                    }}
+                  >
+                    Register here
+                  </button>
+                </div>
+              )}
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 }
