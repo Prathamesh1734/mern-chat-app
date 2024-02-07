@@ -27,7 +27,7 @@ export default function RegisterAndLoginForm() {
     <div className="bg-blue-50 h-screen flex items-center dark:bg-black text-white">
       <div class="container px-5 pt-32 mx-auto lg:px-4 lg:py-4">
         <div class="flex flex-col w-full mb-2 text-left md:text-center ">
-          <h1 class="mb-2 text-6xl font-bold tracking-tighter text-white lg:text-8xl md:text-7xl">
+          <h1 class="mb-2 text-6xl font-bold tracking-tighter text-black lg:text-8xl md:text-7xl dark:text-white">
             <span>Welcome to </span>
             <br class="hidden lg:block"></br>
             realtime ChatApp
@@ -60,7 +60,7 @@ export default function RegisterAndLoginForm() {
               placeholder="Password"
               className="block w-full rounded-md p-2 mb-2 border dark:bg-black text-white"
             />
-            <button className="bg-blue-500 text-white block w-full rounded-md p-2 ">
+            <button className="bg-blue-500 text-white block w-full rounded-md p-2 dark:bg-slate-600">
               {isLoginOrRegister === "register" ? "Register" : "Login"}
             </button>
             {errorMessage && (
@@ -68,7 +68,7 @@ export default function RegisterAndLoginForm() {
                 {errorMessage}
               </div>
             )}
-            <div className="text-center mt-2 dark:text-gray-300">
+            <div className="text-center text-black mt-2 dark:text-gray-300">
               {isLoginOrRegister === "register" && (
                 <div>
                   Already a member?{" "}
