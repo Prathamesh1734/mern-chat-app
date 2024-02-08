@@ -8,7 +8,7 @@ export function Contact({ id, username, onClick, selected, online }) {
       }}
       key={id}
       className={
-        "border-b border-gray-100 flex items-center gap-2 cursor-pointer " +
+        "border-b border-gray-100 dark:border-gray-600 flex items-center gap-2 cursor-pointer " +
         (selected ? "bg-blue-50 dark:bg-[#262626]" : "")
       }
     >

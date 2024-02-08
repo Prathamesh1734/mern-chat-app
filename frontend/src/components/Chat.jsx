@@ -165,7 +165,7 @@ export default function Chat() {
           </span>
           <button
             onClick={logout}
-            className="text-sm text-gray-500 dark:text-blue-500 font-medium bg-blue-100 py-1 px-2 rounded-lg border dark:bg-black"
+            className="text-sm text-gray-500 dark:text-sky-500 font-medium bg-blue-100 py-1 px-2 rounded-lg border dark:bg-black"
           >
             logout
           </button>
@@ -174,7 +174,7 @@ export default function Chat() {
       <div className="flex flex-col bg-blue-50 w-2/3 p-2 dark:bg-black">
         <div className="flex-grow">
           {!selectedUserId && (
-            <div className="flex h-full items-center justify-center dark:border-l border-gray-100">
+            <div className="flex h-full items-center justify-center dark:border-l border-gray-500">
               {" "}
               <div className="text-gray-300">&larr; Select a person</div>
             </div>
