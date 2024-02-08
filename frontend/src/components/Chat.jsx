@@ -118,8 +118,8 @@ export default function Chat() {
   const messagesWithoutDupes = uniqBy(messages, "_id");
 
   return (
-    <div className="flex h-screen">
-      <div className="bg-white w-1/3 flex flex-col">
+    <div className="flex h-screen ">
+      <div className="bg-white w-1/3 flex flex-col dark:bg-black text-white">
         <div className="flex-grow">
           <Logo />
           {Object.keys(onlinePeopleExcludingOurUser).map((userId) => (
@@ -148,7 +148,7 @@ export default function Chat() {
           ))}
         </div>
         <div className="p-2 text-center flex items-center justify-center">
-          <span className="mr-2 text-sm text-gray-600 flex items-center">
+          <span className="mr-2 text-sm text-gray-600 font-semibold dark:text-white flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -165,23 +165,23 @@ export default function Chat() {
           </span>
           <button
             onClick={logout}
-            className="text-sm text-gray-500 bg-blue-100 py-1 px-2 rounded-lg border"
+            className="text-sm text-gray-500 dark:text-blue-500 font-medium bg-blue-100 py-1 px-2 rounded-lg border dark:bg-black"
           >
             logout
           </button>
         </div>
       </div>
-      <div className="flex flex-col bg-blue-50 w-2/3 p-2">
+      <div className="flex flex-col bg-blue-50 w-2/3 p-2 dark:bg-black">
         <div className="flex-grow">
           {!selectedUserId && (
-            <div className="flex h-full items-center justify-center">
+            <div className="flex h-full items-center justify-center dark:border-l border-gray-100">
               {" "}
               <div className="text-gray-300">&larr; Select a person</div>
             </div>
           )}
           {!!selectedUserId && (
             <div className="relative h-full">
-              <div className="overflow-y-scroll absolute top-0 left-0 right-0 bottom-2">
+              <div className="overflow-y-scroll absolute top-0 left-0 right-0 bottom-2 dark:border-l ">
                 {messagesWithoutDupes.map((message) => (
                   <div
                     key={message._id}
@@ -191,10 +191,10 @@ export default function Chat() {
                   >
                     <div
                       className={
-                        "text-left inline-block p-2 my-2 rounded-lg text-sm " +
+                        "text-left inline-block mx-2 p-2 my-2 rounded-lg text-sm " +
                         (message.sender === id
                           ? "bg-blue-500 text-white"
-                          : "bg-white text-gray-500")
+                          : "bg-white text-gray-500 dark:text-white dark:bg-black border")
                       }
                     >
                       {message.text}
@@ -213,11 +213,11 @@ export default function Chat() {
               value={newMessageText}
               onChange={(e) => setNewMessageText(e.target.value)}
               placeholder="Type your messsage here"
-              className="bg-white flex-grow border rounded-lg p-2"
+              className="bg-white text-black dark:text-white flex-grow border rounded-lg p-2 dark:bg-black"
             />
             <button
               type="submit"
-              className="bg-blue-500 p-2 rounded-lg text-white"
+              className="bg-blue-500 p-2 rounded-lg text-white dark:bg-slate-500"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

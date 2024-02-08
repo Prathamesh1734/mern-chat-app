@@ -12,10 +12,16 @@ export default function Avatar({ userId, username, online }) {
   const color = colors[colorIndex];
 
   return (
-    <div className={"w-8 h-8 relative rounded-full flex items-center " + color}>
+    <div
+      className={
+        "w-8 h-8 relative rounded-full flex items-center " +
+        color +
+        " dark:bg-slate-500"
+      }
+    >
       <div className="text-center w-full opacity-60">{username[0]}</div>
       {online && (
-        <div className="absolute w-3 h-3 bg-green-400 bottom-0 right-0 rounded-full border border-white shadow-black"></div>
+        <div className="absolute w-3 h-3 bg-green-400 dark:bg-green-500 bottom-0 right-0 rounded-full border border-white shadow-black"></div>
       )}
       {!online && (
         <div className="absolute w-3 h-3 bg-gray-400 bottom-0 right-0 rounded-full border border-white shadow-black"></div>
